@@ -42,7 +42,7 @@ public class CategoriaController {
 
     @Autowired
     private FirebaseStorageServiceImpl firebaseStorageService;
-    
+    //cambio
     @PostMapping("/guardar")
     public String categoriaGuardar(Categoria categoria,
             @RequestParam("imagenFile") MultipartFile imagenFile) {        
