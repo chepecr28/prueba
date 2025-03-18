@@ -5,9 +5,9 @@
 
 package com.prueba.controller;
 
-import com.Tienda.domain.Categoria;
-import com.Tienda.service.CategoriaService;
-
+import com.prueba.domain.Categoria;
+import com.prueba.service.CategoriaService;
+import com.prueba.service.impl.FirebaseStorageServiceImpl;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,11 +40,20 @@ public class CategoriaController {
         return "/categoria/modifica";
     }
 
-
+    @Autowired
+    private FirebaseStorageServiceImpl firebaseStorageService;
+    
     @PostMapping("/guardar")
     public String categoriaGuardar(Categoria categoria,
             @RequestParam("imagenFile") MultipartFile imagenFile) {        
-
+        if (!imagenFile.isEmpty()) {
+            categoriaService.save(categoria);
+            categoria.setRutaImagen(
+                    firebaseStorageService.cargaImagen(
+                            imagenFile, 
+                            "categoria", 
+                            categoria.getIdCategoria()));
+        }
         categoriaService.save(categoria);
         return "redirect:/categoria/listado";
     }
@@ -62,4 +71,3 @@ public class CategoriaController {
         return "/categoria/modifica";
     }
 }
-

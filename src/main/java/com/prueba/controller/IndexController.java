@@ -5,24 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- *
- * @author joseg
- */
+
 @Controller
 public class IndexController {
 
     @RequestMapping("/")
-    public String index(Model model) {
+    public String page(Model model) {
         model.addAttribute("attribute", "value");
         return "index";
     }
     
     @RequestMapping("/informacion")
     public String contacto(Model model) {
-      
         return "contacto";
     }
-    
 
 }
+

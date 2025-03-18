@@ -5,47 +5,21 @@
 
 package com.prueba.service;
 
-import com.Tienda.dao.CategoriaDao;
-import com.Tienda.domain.Categoria;
-import com.Tienda.service.CategoriaService;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.prueba.domain.Categoria;
 
-@Service
-public class CategoriaServiceImpl implements CategoriaService{
+public interface CategoriaService {
     
+    // Se obtiene un listado de categorias en un List
+    public List<Categoria> getCategorias(boolean activos);
     
-    @Autowired
-    private CategoriaDao categoriaDao;
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<Categoria> getCategorias(boolean activos) {
-        var lista = categoriaDao.findAll();
-        if (activos) {
-            lista.removeIf(e -> !e.isActivo());
-        }
-        return lista;
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public Categoria getCategoria(Categoria categoria) {
-        return categoriaDao.findById(categoria.getIdCategoria()).orElse(null);
-    }
-
-    @Override
-    @Transactional
-    public void save(Categoria categoria) {
-        categoriaDao.save(categoria);
-    }
-
-    @Override
-    @Transactional
-    public void delete(Categoria categoria) {
-        categoriaDao.delete(categoria);
-    }
+   // Se obtiene un Categoria, a partir del id de un categoria
+    public Categoria getCategoria(Categoria categoria);
+    
+    // Se inserta un nuevo categoria si el id del categoria esta vacío
+    // Se actualiza un categoria si el id del categoria NO esta vacío
+    public void save(Categoria categoria);
+    
+    // Se elimina el categoria que tiene el id pasado por parámetro
+    public void delete(Categoria categoria);
 }
-
