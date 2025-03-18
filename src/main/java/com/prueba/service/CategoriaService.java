@@ -6,7 +6,7 @@
 package com.prueba.service;
 
 import java.util.List;
-import com.prueba.domain.Categoria;
+import com.Tienda.domain.Categoria;
 
 public interface CategoriaService {
     
